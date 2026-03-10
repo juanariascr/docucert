@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeftIcon, ChevronRightIcon, PresentationIcon, ShieldAlertIcon, NetworkIcon, CodeIcon, LayersIcon, ListChecksIcon } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon, PresentationIcon, ShieldAlertIcon, NetworkIcon, CodeIcon, LayersIcon, ListChecksIcon, UsersIcon, RocketIcon } from 'lucide-react';
 
 export function OverviewPage({ setActiveView }: { setActiveView: (view: string) => void }) {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -85,6 +85,42 @@ export function OverviewPage({ setActiveView }: { setActiveView: (view: string) 
             )
         },
         {
+            id: 'personas',
+            icon: <UsersIcon className="w-16 h-16 text-indigo-500 mb-6" />,
+            title: "Target User Personas",
+            content: (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="bg-white border-2 border-stone-200 p-8 rounded-2xl shadow-sm">
+                        <h4 className="text-2xl font-bold text-indigo-900 mb-2">The Registrar</h4>
+                        <p className="text-sm font-bold text-indigo-500 uppercase tracking-wider mb-4">Issuer Persona</p>
+                        <ul className="list-disc list-inside text-stone-600 space-y-2 text-lg">
+                            <li>Requires enterprise-grade key management.</li>
+                            <li>Needs batch credential minting (CSV).</li>
+                            <li>Pain Point: High volume of manual verification requests.</li>
+                        </ul>
+                    </div>
+                    <div className="bg-white border-2 border-stone-200 p-8 rounded-2xl shadow-sm">
+                        <h4 className="text-2xl font-bold text-indigo-900 mb-2">The Graduate</h4>
+                        <p className="text-sm font-bold text-indigo-500 uppercase tracking-wider mb-4">Holder Persona</p>
+                        <ul className="list-disc list-inside text-stone-600 space-y-2 text-lg">
+                            <li>Uses a Self-Sovereign Identity (SSI) Wallet.</li>
+                            <li>Desires privacy and selective disclosure.</li>
+                            <li>Pain Point: Limited portability of physical diplomas.</li>
+                        </ul>
+                    </div>
+                    <div className="bg-white border-2 border-stone-200 p-8 rounded-2xl shadow-sm">
+                        <h4 className="text-2xl font-bold text-indigo-900 mb-2">The Recruiter</h4>
+                        <p className="text-sm font-bold text-indigo-500 uppercase tracking-wider mb-4">Verifier Persona</p>
+                        <ul className="list-disc list-inside text-stone-600 space-y-2 text-lg">
+                            <li>Requires instant, boolean (true/false) checks.</li>
+                            <li>Needs a public, no-login verification portal.</li>
+                            <li>Pain Point: Manual background checks delay hiring.</li>
+                        </ul>
+                    </div>
+                </div>
+            )
+        },
+        {
             id: 'matrix',
             icon: <ListChecksIcon className="w-16 h-16 text-indigo-500 mb-6" />,
             title: "Feature Prioritization Matrix",
@@ -147,6 +183,35 @@ export function OverviewPage({ setActiveView }: { setActiveView: (view: string) 
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            )
+        },
+        {
+            id: 'rollout',
+            icon: <RocketIcon className="w-16 h-16 text-orange-500 mb-6" />,
+            title: "Rollout & Operations Plan",
+            content: (
+                <div className="space-y-8">
+                    <div className="flex flex-col md:flex-row gap-8">
+                        <div className="flex-1 bg-orange-50 border-2 border-orange-200 p-8 rounded-2xl shadow-sm">
+                            <h4 className="text-2xl font-bold text-orange-800 mb-4 border-b-2 border-orange-200 pb-3">Phase 1: MVP Rollout</h4>
+                            <ul className="list-disc list-inside text-lg text-orange-900 space-y-4 marker:text-orange-500">
+                                <li>Deploy Smart Contracts to EVM Testnet.</li>
+                                <li>Launch University Portal for batch CSV issuance.</li>
+                                <li>Launch web-based Student Wallet and Public Verifier.</li>
+                                <li><strong>Operations:</strong> University manages private keys via secure cloud vault; platform sustained by SaaS licensing.</li>
+                            </ul>
+                        </div>
+                        <div className="flex-1 bg-stone-50 border-2 border-stone-200 p-8 rounded-2xl shadow-sm">
+                            <h4 className="text-2xl font-bold text-stone-800 mb-4 border-b-2 border-stone-200 pb-3">Phase 2: Scaling & V2</h4>
+                            <ul className="list-disc list-inside text-lg text-stone-700 space-y-4 marker:text-stone-400">
+                                <li>Migrate to Ethereum Mainnet (or L2 for lower gas).</li>
+                                <li>Implement Zero-Knowledge Proofs (ZKPs) for selective disclosure.</li>
+                                <li>Paid API Gateway for high-volume background check firms.</li>
+                                <li><strong>Operations:</strong> Transition to decentralized node operators for identity resolution.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             )

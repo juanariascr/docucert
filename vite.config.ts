@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite' // <-- Add this import
+import tailwindcss from '@tailwindcss/vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
+  base: '/docucert/', // <-- ADD THIS (Replace 'docucert' with your exact GitHub repo name)
   plugins: [
     react(),
-    tailwindcss(), // <-- Add the plugin here
+    tailwindcss(),
     nodePolyfills({
       include: ['buffer', 'crypto', 'stream', 'util'],
       globals: {
@@ -16,7 +17,4 @@ export default defineConfig({
       },
     }),
   ],
-  server: {
-    open: true,
-  },
 })

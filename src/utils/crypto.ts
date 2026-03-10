@@ -13,6 +13,7 @@ export const generateMockVC = (student: any, index: number) => ({
             "name": student.major,
             "student": student.name,
             "graduationDate": student.date,
+            "gpa": student.gpa || "N/A", // <-- ADDED GPA HERE
             "studentEmail": student.email
         }
     },
@@ -30,7 +31,6 @@ export const generateMockVC = (student: any, index: number) => ({
         "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..MockSignatureHash12345"
     }
 });
-
 export const simulateBackendProcessing = async (students: any[]) => {
     // Simulate network processing delay
     await new Promise(r => setTimeout(r, 1500));

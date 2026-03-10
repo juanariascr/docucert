@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircleIcon, AlertCircleIcon, TrashIcon } from 'lucide-react';
 import { simulateBackendProcessing } from '../utils/crypto';
 
 const MOCK_DATA = [
-    { id: 1, name: 'Sarah Chen', major: 'Computer Science', date: 'May 15 2025', email: 'jariasmartinez@scu.edu', valid: true },
-    { id: 2, name: 'Marcus Johnson', major: 'Business Administration', date: 'May 15 2025', email: 'jariasmartinez@scu.edu', valid: true },
-    { id: 3, name: 'Priya Patel', major: 'Biomedical Engineering', date: 'May 15 2025', email: 'jariasmartinez@scu.edu', valid: true },
-    { id: 4, name: "James O'Brien", major: 'English Literature', date: 'May 15 2025', email: 'jariasmartinez@scu.edu', valid: true },
-    { id: 5, name: 'Aisha Mohammed', major: 'Data Science', date: 'May 15 2025', email: '', valid: false, error: 'Missing email' },
-    { id: 6, name: 'David Kim', major: 'Psychology', date: 'May 15 2025', email: 'jariasmartinez@scu.edu', valid: true }
+    { id: 1, name: 'Sarah Chen', major: 'Computer Science', date: 'May 15 2026', gpa: '3.92', email: 'jariasmartinez@scu.edu', valid: true },
+    { id: 2, name: 'Marcus Johnson', major: 'Business Administration', date: 'May 15 2026', gpa: '3.45', email: 'jariasmartinez@scu.edu', valid: true },
+    { id: 3, name: 'Priya Patel', major: 'Biomedical Engineering', date: 'May 15 2026', gpa: '3.88', email: 'jariasmartinez@scu.edu', valid: true },
+    { id: 4, name: "James O'Brien", major: 'English Literature', date: 'May 15 2026', gpa: '3.60', email: 'jariasmartinez@scu.edu', valid: true },
+    { id: 5, name: 'Aisha Mohammed', major: 'Data Science', date: 'May 15 2026', gpa: '3.95', email: '', valid: false, error: 'Missing email' },
+    { id: 6, name: 'David Kim', major: 'Psychology', date: 'May 15 2026', gpa: '3.71', email: 'jariasmartinez@scu.edu', valid: true }
 ];
 
 export function CSVPreviewTable() {
@@ -56,6 +56,7 @@ export function CSVPreviewTable() {
                             <th className="px-4 py-3">Name</th>
                             <th className="px-4 py-3">Major</th>
                             <th className="px-4 py-3">Graduation Date</th>
+                            <th className="px-4 py-3">GPA</th>
                             <th className="px-4 py-3">Student Email</th>
                         </tr>
                     </thead>
@@ -77,6 +78,7 @@ export function CSVPreviewTable() {
                                 <td className="px-4 py-3 font-medium text-stone-900">{row.name}</td>
                                 <td className="px-4 py-3 text-stone-600">{row.major}</td>
                                 <td className="px-4 py-3 text-stone-600">{row.date}</td>
+                                <td className="px-4 py-3 text-stone-600">{row.gpa}</td>
                                 <td className="px-4 py-3">{row.email ? <span className="text-stone-600">{row.email}</span> : <span className="text-amber-600 text-xs italic">{row.error}</span>}</td>
                             </motion.tr>
                         ))}

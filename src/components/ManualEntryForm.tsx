@@ -12,7 +12,7 @@ export function ManualEntryForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [formData, setFormData] = useState({
-        name: '', major: '', date: '', email: 'jariasmartinez@scu.edu'
+        name: '', major: '', date: '', gpa: '', email: 'jariasmartinez@scu.edu'
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -26,7 +26,7 @@ export function ManualEntryForm() {
 
         setTimeout(() => {
             setShowSuccess(false);
-            setFormData({ name: '', major: '', date: '', email: 'jariasmartinez@scu.edu' });
+            setFormData({ name: '', major: '', date: '', gpa: '', email: 'jariasmartinez@scu.edu' });
         }, 3000);
     };
 
@@ -72,6 +72,11 @@ export function ManualEntryForm() {
                             <div className="space-y-1.5">
                                 <label className="block text-sm font-medium text-stone-700">Graduation Date</label>
                                 <input type="date" name="date" required value={formData.date} onChange={handleChange} className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-stone-700" />
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-medium text-stone-700">Cumulative GPA</label>
+                                <input type="number" step="0.01" min="0" max="4.0" name="gpa" required value={formData.gpa} onChange={handleChange} placeholder="e.g. 3.85" className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-stone-700" />
                             </div>
 
                             <div className="space-y-1.5">

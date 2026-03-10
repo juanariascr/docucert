@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ShieldCheckIcon, ShieldAlertIcon, SearchIcon, BanIcon, CopyIcon } from 'lucide-react';
 
 export function CertificatesPage() {

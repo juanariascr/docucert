@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FingerprintIcon, ShieldCheckIcon, DownloadIcon, Share2Icon, AwardIcon, QrCodeIcon, WalletCardsIcon, ChevronDownIcon } from 'lucide-react';
 import QRCode from 'react-qr-code';
@@ -170,10 +170,14 @@ export function StudentWalletPage() {
                                                         <h2 className="text-4xl font-serif text-stone-900 mb-2">{vc.credentialSubject.degree.name}</h2>
                                                         <p className="text-lg text-stone-600 font-serif italic mb-8">Awarded to</p>
                                                         <h3 className="text-3xl font-serif text-stone-900 mb-8">{vc.credentialSubject.degree.student}</h3>
-                                                        <div className="flex items-center justify-center gap-12 w-full mt-4">
+                                                        <div className="flex items-center justify-center gap-10 w-full mt-4">
                                                             <div className="text-left">
                                                                 <p className="text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">Graduation Date</p>
                                                                 <p className="font-mono text-stone-800">{vc.credentialSubject.degree.graduationDate}</p>
+                                                            </div>
+                                                            <div className="text-center">
+                                                                <p className="text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">GPA</p>
+                                                                <p className="font-mono text-stone-800 font-bold">{vc.credentialSubject.degree.gpa}</p>
                                                             </div>
                                                             <div className="text-right">
                                                                 <p className="text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">Cryptographic Issuer</p>

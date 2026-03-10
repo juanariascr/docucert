@@ -1,4 +1,3 @@
-import React from 'react';
 import { GraduationCapIcon, LayoutDashboardIcon, UploadCloudIcon, FileTextIcon, SettingsIcon, WalletIcon, FileSearchIcon, PresentationIcon } from 'lucide-react';
 
 interface SidebarProps {

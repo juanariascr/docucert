@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheckIcon, ShieldAlertIcon, XCircleIcon, FileSearchIcon, CodeIcon, CheckCircle2Icon, AlertTriangleIcon } from 'lucide-react';
+import { ShieldCheckIcon, XCircleIcon, FileSearchIcon, CodeIcon, CheckCircle2Icon, AlertTriangleIcon } from 'lucide-react';
 
 export function VerifierPortalPage() {
     const [inputJson, setInputJson] = useState('');
@@ -17,7 +17,7 @@ export function VerifierPortalPage() {
             try {
                 const parsed = JSON.parse(inputJson);
 
-                // 1. Structural & Cryptographic Integrity Check
+                // 1. Structural Schema Check
                 const isValidSchema = parsed.type?.includes("VerifiableCredential") &&
                     parsed.proof?.type === "EcdsaSecp256k1Signature2019";
 
@@ -26,7 +26,29 @@ export function VerifierPortalPage() {
                     return;
                 }
 
-                // 2. Ledger Status Check (Revocation)
+                // 2. Cryptographic Integrity Check (Simulated Signature Validation)
+                // In a real app, Veramo would hash the payload and compare it to the JWS.
+                // Here, we simulate that by checking if the pasted payload exactly matches what was issued.
+                const issuedVCs = JSON.parse(localStorage.getItem('docucert_issued') || '[]');
+                const originalVC = issuedVCs.find((vc: any) => vc.id === parsed.id);
+
+                if (!originalVC) {
+                    // The credential ID doesn't even exist (completely fake credential)
+                    setVerificationState('invalid');
+                    return;
+                }
+
+                // Check if the data was tampered with by comparing stringified payloads
+                const originalPayload = JSON.stringify(originalVC.credentialSubject);
+                const pastedPayload = JSON.stringify(parsed.credentialSubject);
+
+                if (originalPayload !== pastedPayload) {
+                    // TAMPERING DETECTED: The hash of the pasted data does not match the original signature!
+                    setVerificationState('invalid');
+                    return;
+                }
+
+                // 3. Ledger Status Check (Revocation)
                 const index = parsed.credentialStatus?.statusListIndex;
                 const registry = JSON.parse(localStorage.getItem('docucert_registry') || '{}');
 
@@ -36,7 +58,7 @@ export function VerifierPortalPage() {
                     return;
                 }
 
-                // 3. Passed all checks
+                // 4. Passed all checks
                 setVerifiedData(parsed);
                 setVerificationState('valid');
 
@@ -136,7 +158,7 @@ export function VerifierPortalPage() {
                                     </div>
                                 </div>
                                 <div className="p-8">
-                                    <div className="grid grid-cols-2 gap-8 mb-8">
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-8">
                                         <div>
                                             <p className="text-xs uppercase tracking-wider text-stone-500 font-bold mb-1">Candidate Name</p>
                                             <p className="text-xl font-medium text-white">{verifiedData.credentialSubject.degree.student}</p>
@@ -146,10 +168,14 @@ export function VerifierPortalPage() {
                                             <p className="text-xl font-medium text-white">{verifiedData.credentialSubject.degree.name}</p>
                                         </div>
                                         <div>
+                                            <p className="text-xs uppercase tracking-wider text-stone-500 font-bold mb-1">Verified GPA</p>
+                                            <p className="text-xl font-medium text-emerald-400">{verifiedData.credentialSubject.degree.gpa}</p>
+                                        </div>
+                                        <div>
                                             <p className="text-xs uppercase tracking-wider text-stone-500 font-bold mb-1">Graduation Date</p>
                                             <p className="text-lg text-stone-300">{verifiedData.credentialSubject.degree.graduationDate}</p>
                                         </div>
-                                        <div>
+                                        <div className="md:col-span-2">
                                             <p className="text-xs uppercase tracking-wider text-stone-500 font-bold mb-1">Cryptographic Issuer</p>
                                             <p className="text-sm font-mono text-stone-400 break-all">{verifiedData.issuer}</p>
                                         </div>
